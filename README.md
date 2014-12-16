@@ -50,3 +50,4 @@ Richard Lee
 ## License
 
 `aws-sns-hipchat` is available under the MIT license. See the `LICENSE` file for more info.
+
