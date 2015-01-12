@@ -1,4 +1,4 @@
-aws-sns-hipchat
+aws-sns-hipchat [![Build Status](https://travis-ci.org/ifeelgoods/aws-sns-proxy.svg?branch=try_travis)](https://travis-ci.org/ifeelgoods/aws-sns-proxy)
 ===============
 
 A simple AWS SNS HTTP(s) endpoint to send notification to HipChat chatroom or Jenkins Job.
