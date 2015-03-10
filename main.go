@@ -296,7 +296,7 @@ func ServeHTTP(args martini.Params, w http.ResponseWriter, r *http.Request, h Hi
 	  if n.TopicArn == "arn:aws:sns:us-east-1:565127752121:config-topic" {
 		  buffer := bytes.NewBuffer([]byte{})
 		  err = json.Indent(buffer, []byte(n.Message), "", "  ")
-		  message = "\\code " + buffer.String()
+		  message = "/code " + buffer.String()
 	  } else {
 		  message = fmt.Sprintf("%v: %v", n.Subject, n.Message)
 	  }
