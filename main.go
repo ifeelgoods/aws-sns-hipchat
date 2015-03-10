@@ -289,8 +289,8 @@ func ServeHTTP(args martini.Params, w http.ResponseWriter, r *http.Request, h Hi
     }
   }
 
-  if len(n.Message) != 0 && len(n.Subject) != 0 {
-		color := ColorStyle(n.Subject)
+  if len(n.Message) != 0  {
+	color := ColorStyle(n.Subject)
     err := h.SendMessage(room_id, fmt.Sprintf("%v: %v", n.Subject, n.Message), color)
     if err != nil {
       fmt.Printf("HipChat error: %v\n", err)
