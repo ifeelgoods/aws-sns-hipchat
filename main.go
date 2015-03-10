@@ -298,10 +298,10 @@ func ServeHTTP(args martini.Params, w http.ResponseWriter, r *http.Request, h Hi
 		  err = json.Indent(buffer, []byte(n.Message), "", "  ")
 		  message = "\\code " + buffer.String()
 	  } else {
-		  message = n.Message
+		  message = fmt.Sprintf("%v: %v", n.Subject, n.Message)
 	  }
-	  
-	  err := h.SendMessage(room_id, fmt.Sprintf("%v: %v", n.Subject, message), color)
+
+	  err := h.SendMessage(room_id, message, color)
     if err != nil {
       fmt.Printf("HipChat error: %v\n", err)
       http.Error(w, err.Error(), http.StatusInternalServerError)
