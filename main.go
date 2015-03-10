@@ -291,7 +291,17 @@ func ServeHTTP(args martini.Params, w http.ResponseWriter, r *http.Request, h Hi
 
   if len(n.Message) != 0  {
 	color := ColorStyle(n.Subject)
-    err := h.SendMessage(room_id, fmt.Sprintf("%v: %v", n.Subject, n.Message), color)
+	  var message string
+
+	  if n.TopicArn == "arn:aws:sns:us-east-1:565127752121:config-topic" {
+		  buffer := bytes.NewBuffer([]byte{})
+		  err = json.Indent(buffer, []byte(n.Message), "", "  ")
+		  message = buffer.String()
+	  } else {
+		  message = n.Message
+	  }
+	  
+	  err := h.SendMessage(room_id, fmt.Sprintf("%v: %v", n.Subject, message), color)
     if err != nil {
       fmt.Printf("HipChat error: %v\n", err)
       http.Error(w, err.Error(), http.StatusInternalServerError)
