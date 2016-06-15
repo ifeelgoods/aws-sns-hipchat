@@ -289,9 +289,19 @@ func ServeHTTP(args martini.Params, w http.ResponseWriter, r *http.Request, h Hi
     }
   }
 
-  if len(n.Message) != 0 && len(n.Subject) != 0 {
-		color := ColorStyle(n.Subject)
-    err := h.SendMessage(room_id, fmt.Sprintf("%v: %v", n.Subject, n.Message), color)
+  if len(n.Message) != 0  {
+	color := ColorStyle(n.Subject)
+	  var message string
+
+	  if n.TopicArn == "arn:aws:sns:us-east-1:565127752121:config-topic" {
+		  buffer := bytes.NewBuffer([]byte{})
+		  err = json.Indent(buffer, []byte(n.Message), "", "  ")
+		  message = "/code " + buffer.String()
+	  } else {
+		  message = fmt.Sprintf("%v: %v", n.Subject, n.Message)
+	  }
+
+	  err := h.SendMessage(room_id, message, color)
     if err != nil {
       fmt.Printf("HipChat error: %v\n", err)
       http.Error(w, err.Error(), http.StatusInternalServerError)
